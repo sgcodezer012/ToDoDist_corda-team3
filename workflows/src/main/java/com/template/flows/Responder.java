@@ -9,7 +9,7 @@ import net.corda.core.flows.InitiatedBy;
 // ******************
 // * Responder flow *
 // ******************
-@InitiatedBy(Initiator.class)
+@InitiatedBy(ToDoDistInitiator.class)
 public class Responder extends FlowLogic<Void> {
     private FlowSession counterpartySession;
 
