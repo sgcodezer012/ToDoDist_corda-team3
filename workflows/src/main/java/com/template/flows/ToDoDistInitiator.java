@@ -31,11 +31,14 @@ public class ToDoDistInitiator extends FlowLogic<SignedTransaction> {
     private LocalDate currentDate;
     private String taskDescription;
     private String taskStatus;
+    private String deadlineDate;
     public ToDoDistInitiator(String taskDescription,
-                             String taskStatus) {
+                             String taskStatus,
+                             String deadlineDate) {
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;
         this.currentDate = LocalDate.now();
+        this.deadlineDate = deadlineDate;
     }
     @Override
     public ProgressTracker getProgressTracker() {
@@ -47,7 +50,7 @@ public class ToDoDistInitiator extends FlowLogic<SignedTransaction> {
     public SignedTransaction call() throws FlowException {
         ServiceHub serviceHub = getServiceHub();
         Party self = getOurIdentity(); // Self Party
-        final ToDoDistState toDoDistState = new ToDoDistState(self, self, taskDescription, taskStatus, currentDate); // Initialize State
+        final ToDoDistState toDoDistState = new ToDoDistState(self, self, taskDescription, taskStatus, currentDate, deadlineDate); // Initialize State
         final Party notary = serviceHub.getNetworkMapCache().getNotaryIdentities().get(0); // Get Notary
         //Create Command with Signers
         final Command<ToDoDistContract.Commands.Create> txCommand = new Command<>(

@@ -25,24 +25,29 @@ public class ToDoDistState implements LinearState {
     private String taskStatus;
     private UniqueIdentifier linearId;
     private LocalDate dateOfCreation;
+    private String deadlineDate;
 
     public ToDoDistState(Party assignedBy,
                          Party assignedTo,
                          String taskDescription,
                          String taskStatus,
-                         LocalDate dateOfCreation) {
+                         LocalDate dateOfCreation,
+                         String deadlineDate) {
         this.linearId = new UniqueIdentifier();
         this.assignedBy = assignedBy;
         this.assignedTo = assignedTo;
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;
         this.dateOfCreation = dateOfCreation;
+        this.deadlineDate = deadlineDate;
     }
     public String getTaskDescription() { return taskDescription; }
     public LocalDate getDateOfCreation() { return dateOfCreation;}
+    public String getDeadlineDate() {return deadlineDate;  }
     public String getTaskStatus() { return taskStatus;}
     public Party getAssignBy() { return assignedBy;}
     public Party getAssignTo() { return assignedTo;}
+    public void setAssignTo(Party assignedTo) { this.assignedTo = assignedTo; }
 
     @Override
     public List<AbstractParty> getParticipants() {
@@ -52,6 +57,6 @@ public class ToDoDistState implements LinearState {
     @NotNull
     @Override
     public UniqueIdentifier getLinearId() {
-        return new UniqueIdentifier();
+        return this.linearId;
     }
 }
